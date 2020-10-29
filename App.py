@@ -109,26 +109,14 @@ def delete(id):
     return redirect(url_for('Index'))
 
 
-#@app.route('/search/<key>')
-#def search(key):
-   # my_data = Data.query.get(request.args.get('query'))
-   # my_data = Data.query.get(key)
-   # return render_template("index.html", employees = my_data)
-    # my_data = mysql.connection.cursor()
-    # my_data.execute("SELECT * FROM data ")
-    # emp=my_data.fetchall()
-    # my_data.close()
-    # return render_template("index.html", employees = emp)
-#@app.route('/search/<key>', methods=['GET', 'POST'])
-    
-#def search(key):
-    #searchForm = searchForm()
-    
-   # my_data = Data.query.filter(Data.name.like('%' + key + '%'))
-
-
-   # return render_template('index.html', employees = my_data)
-
+@app.route('/search',methods=['GET','POST'])
+def search():
+    form=request.form
+    search_key =form['key']
+    my_Data="%{0}%".format(search_key)
+    my_data = Data.query.filter(Data.name.like(my_Data)).all()
+    return render_template("index.html", employees = my_data)
+ 
 
 if __name__ == "__main__":
     app.run(debug=True)
