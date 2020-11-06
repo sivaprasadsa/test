@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+
+
+{% block title %}  {% endblock %}
+
+
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col md-12">
+           
+            <form action="{{url_for('insertplace')}}" method="POST">
+
+
+                <div class="form-group">
+ 
+                   <label>Palce Name:</label>
+                   <input type="text" class="form-control col-md-5" name="placename" required="1"placeholder="enter place name">
+ 
+ 
+                </div>
+                <div class="form-group">
+ 
+ 
+                   <button class="btn btn-primary" type="submit">Add Place</button>
+ 
+ 
+                </div>
+ 
+ 
+             </form>
+        </div>
+        <table class="table table-hover table-dark">
+
+            <tr>
+
+                
+                <th>Place Name</th>
+                
+                <th>Action</th>
+
+            </tr>
+            {% for row in data %}
+            <tr>
+                
+                <td>{{row.placename}}</td>
+                <td>
+                    
+                    <a href="/deleteplace/{{row.id}}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure To Delete ?')">Delete</a>
+
+                </td>
+                
+            {% endfor %}
+
+            </tr>
+
+
+           
+
+
+    </div>
+</div>
+{% endblock %}

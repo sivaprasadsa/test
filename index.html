@@ -12,25 +12,6 @@
 <div class="container">
     <div class="row">
         <div class="col md-12">
-
-             
-                <div class="float-left">
-                  
-                  <form  method="POST">
-                     <div class="w3-show-inline-block">
-                        <div class="w3-bar">
-                  <input type="text" class="form-control" name="key" id="key" placeholder="enter search key">
-                  <input type="submit" formaction="/search" value="Search" class="float-right"> 
-                      </div>
-                         </div>
-                  </form> 
-                </div>
-             
-         </div> 
-                <h2>   <button type="button"  class="btn btn-success float-right"
-                data-toggle="modal" data-target="#mymodal">Add New Employee</button> </h2>
-
-
                 {% with messages = get_flashed_messages() %}
 
                 {% if messages %}
@@ -75,7 +56,7 @@
                     </tr>
 
 
-                   {% for row in employees %}
+                   {% for row in data.employees %}
                     <tr>
                         
                         <td>{{row.name}}</td>
@@ -144,7 +125,11 @@
                   <label>Home:</label>
                    <input type="hidden"  name="id" value="{{row.id}}">
 
-                  <input type="text" class="form-control" name="home" value="{{row.home}}">
+                   <select name= home  >
+                     {% for place in data.places %}
+                     <option value= "{{ place.placename }}" >{{ place.placename }}</option>"
+                     {% endfor %}
+                 </select>
 
 
                </div>
@@ -210,8 +195,30 @@
 
 
             </div>
+    </div>
+    <div class="float-left">
+                  
+      <form  method="POST">
+         <div class="w3-show-inline-block">
+            <div class="w3-bar float-left">
+      <input type="text" class="form-control" name="key" id="key" placeholder="enter search key"> <input type="submit" class="btn btn-success float-left"formaction="/search" value="Search"> 
+     
+          </div>
+             </div>
+      </form> 
+    </div>
+ 
+</div> 
+<div class="float-right" style="padding-right: 125px;">
+    <button type="button"  class="btn btn-success " 
+   data-toggle="modal" data-target="#mymodal">New Employee</button> </div>
+      
+</div>
+<div class="text-center">
+   
+   <a href="/place" class="btn btn-primary " >places</a>
 
-
+</div>
 
                   <!-- Modal Add Employee-->
 
@@ -245,8 +252,12 @@
                <div class="form-group">
 
                   <label>Home:</label>
-                  <input type="text" class="form-control" name="home" required="1">
-
+                  <!-- <input type="text" class="form-control" name="home" required="1"> -->
+                  <select name= home >
+                     {% for place in data.places %}
+                     <option value= "{{ place.id }}" SELECTED>{{ place.placename }}</option>"
+                     {% endfor %}
+                 </select>
 
                </div>
                 <div class="form-group">
